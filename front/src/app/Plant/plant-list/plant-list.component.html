@@ -1,0 +1,86 @@
+<button class="btn btn-primary" (click)="openPopup()">Add Plant</button>
+
+    <div #myToast class="toast align-items-center text-white bg-info border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            {{toastMessage}}
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Cost</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let objplant of plants | async">
+        <th scope="row">{{objplant.plantId}}</th>
+        <td>{{objplant.plantName}}</td>
+        <td>{{objplant.plantDesccription}}</td>
+        <td>{{objplant.plantCost}}</td>
+        <td>
+          <button class="text-warning" title="Edit" data-toggle="tooltip" (click)="updatePlant(objplant)"><i class="fa-solid fa-pen-to-square"></i></button>
+          <button  class="text-danger" title="Delete" data-toggle="tooltip" (click)="deleteOption(objplant.plantId)"><i class="fa-solid fa-trash-can"></i></button>
+      </td>
+      </tr>
+  
+    </tbody>
+  </table>
+  
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{title}}</h4>
+        </div>
+        <div class="modal-body">
+          <h2>Http client post methood call</h2>
+<!-- <p *ngIf='datasaved' ngClass='success'>
+    Record save successfully
+    </p> -->
+    <form [formGroup]='plantForm' (ngSubmit)='onFormSubmit()'>
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td> <input formControlName="plantName"> </td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td> <input formControlName="plantDesccription"> </td>
+            </tr>
+            <tr>
+                <td>Cost:</td>
+                <td> <input formControlName="plantCost"> </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button [disabled]="plantForm.invalid">Submit</button>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger"
+                  (click)="closePopup()">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
