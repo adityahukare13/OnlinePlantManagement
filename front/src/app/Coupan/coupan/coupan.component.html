@@ -1,0 +1,95 @@
+<button class="btn btn-primary" (click)="openPopup()">Add Coupan</button>
+
+    <div #myToast class="toast align-items-center text-white bg-info border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            {{toastMessage}}
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Coupan Id</th>
+        <th scope="col">Coupan Name</th>
+        <th scope="col">Coupan Description</th>
+        <th scope="col">Coupan Type</th>
+        <th scope="col">Coupan Value</th>
+        <th scope="col">Coupan Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let objcoupan of coupans | async">
+        <th scope="row">{{objcoupan.coupanId}}</th>
+        <td>{{objcoupan.coupanName}}</td>
+        <td>{{objcoupan.coupanDescription}}</td>
+        <td>{{objcoupan.coupanType}}</td>
+        <td>{{objcoupan.couponValue}}</td>
+        <td>
+          
+          <button  class="text-danger" title="Delete" data-toggle="tooltip" (click)="deleteOption(objcoupan.coupanId)"><i class="fa-solid fa-trash-can"></i></button>
+      </td>
+      </tr>
+  
+    </tbody>
+  </table>
+  
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{title}}</h4>
+        </div>
+        <div class="modal-body">
+          <!-- <h2>Http client post methood call</h2> -->
+<!-- <p *ngIf='datasaved' ngClass='success'>
+    Record save successfully
+    </p> -->
+
+    
+    <form [formGroup]='coupanForm' (ngSubmit)='onFormSubmit()'>
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td> <input formControlName="coupanName"> </td>
+            </tr>
+            <tr>
+                <td>Type:</td>
+                <td> <input formControlName="coupanType"> </td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td> <input formControlName="coupanDescription"> </td>
+            </tr>
+            <tr>
+                <td>Value:</td>
+                <td> <input formControlName="couponValue"> </td>
+            </tr>
+            
+            <tr>
+                <td colspan="2">
+                    <button [disabled]="coupanForm.invalid">Submit</button>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger"
+                  (click)="closePopup()">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
